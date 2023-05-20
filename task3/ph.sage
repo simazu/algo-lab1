@@ -1,8 +1,8 @@
 import argparse
 
-def ph(p,g,b):
+def dl(p,a,b):
 	F=IntegerModRing(p)
-	g=F(g)
+	a=F(a)
 	b=F(b)
 	G=[]
 	B=[]
@@ -10,7 +10,7 @@ def ph(p,g,b):
 	c=[]
 	N=factor(p-1)
 	for i in range(0,len(N)):
-		G.append(g^((p-1)/(N[i][0]^N[i][1])))
+		G.append(a^((p-1)/(N[i][0]^N[i][1])))
 		B.append(b^((p-1)/(N[i][0]^N[i][1])))
 		X.append(log(B[i],G[i]))
 		c.append((X[i],(N[i][0]^N[i][1])))
@@ -26,15 +26,15 @@ def ph(p,g,b):
 		m=t1[1]*t2[1]
 		c.append((r,m))
 	
-	print("x =", c[0][0])
-end
+	return c[0][0]
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-p', '--p', default=5)
-parser.add_argument('-b', '--b', default=3)
-parser.add_argument('-g', '--g', default=2)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--p', default=5)
+    parser.add_argument('-b', '--b', default=3)
+    parser.add_argument('-a', '--a', default=2)
 
-args = parser.parse_args()
-print(f'{args.g}^x = {args.b} mod {args.p}')
-x = ph(int(args.p), int(args.g), int(args.b))
+    args = parser.parse_args()
+    print(f'{args.a}^x = {args.b} mod {args.p}')
+    print(f'x =', dl(int(args.p), int(args.a), int(args.b)))
 
